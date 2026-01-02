@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import './styles/ios-fixes.css';
 @font-face {
@@ -9,7 +9,7 @@
 	src: url('/fonts/edoszq_regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
-}
+} */
 
 /* Telegram Mini App Optimized Styles */
 body {
