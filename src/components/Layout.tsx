@@ -55,6 +55,8 @@ export function Layout({
 		<div
 			className={`telegram-mini-app-container ${className}`}
 			style={{
+						inset:0,
+
 				width: '100vw',
 				height: `${containerHeight}px`,
 				maxHeight: `${containerHeight}px`,
@@ -72,6 +74,7 @@ export function Layout({
 				touchAction: 'pan-y',
 				overscrollBehavior: 'none',
 				boxSizing: 'border-box',
+
 			}}
 		>
 			{/* Фоновое изображение - оптимизировано */}
@@ -103,6 +106,8 @@ export function Layout({
 					zIndex: 1,
 					margin: 0,
 					padding: 0,
+						inset:0,
+
 				}}
 			/>
 
@@ -144,6 +149,8 @@ export function Layout({
 						width: '90%',
 						margin: 0,
 						padding: 0,
+						inset:0,
+
 					}}
 				>
 					<div
@@ -156,6 +163,8 @@ export function Layout({
 							lineHeight: 1,
 							margin: 0,
 							padding: 0,
+						inset:0,
+
 						}}
 					>
 						{title}
@@ -167,6 +176,8 @@ export function Layout({
 			<div
 				style={{
 					position: 'absolute',
+					
+					inset:'0px',
 					top: title ? '120px' : '40px',
 					left: 0,
 					right: 0,
@@ -185,7 +196,7 @@ export function Layout({
 					maxWidth: '100vw',
 					boxSizing: 'border-box',
 					scrollBehavior: 'smooth',
-						inset:0,
+
 
 				}}
 				onScroll={e => {

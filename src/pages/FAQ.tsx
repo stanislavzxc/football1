@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import { Layout } from "../components/Layout";
-import { TelegramButton } from "../components/TelegramButton";
 import Navbar from "../components/Navbar";
+
 interface FAQSection {
   title: string;
   content: string[];
@@ -42,7 +42,7 @@ export default function FAQ() {
 
   if (loading) {
     return (
-      <Layout  showBackButton>
+      <Layout showBackButton>
         <div className="flex items-center justify-center min-h-[300px]">
           <div className="text-center">
             <div className="text-[1.2rem] text-white mb-2">
@@ -55,18 +55,17 @@ export default function FAQ() {
   }
 
   return (
-
-    <Layout showBackButton >
-      <div className="w-full min-h-screen bg-white dark:bg-[#1A1F25]" > 
+    <Layout showBackButton>
+      <div className="w-full h-full bg-[#1A1F25] flex flex-col" style={{inset:0,}}> 
         {/* Заголовок */}
-        <div className="w-full border-b border-b-[2px] border-[#C3C3C3] dark:border-[#575757] py-[20px]">
-          <h3 className="text-[24px] text-[#000] dark:text-[#fff] px-[16px] roboto font-bold">
+        <div className="w-full border-b border-b-[2px] border-[#575757] py-[20px] flex-shrink-0">
+          <h3 className="text-[24px] text-[#fff] px-[16px] roboto font-bold">
             Ответы на вопросы
           </h3>
         </div>
 
-        {/* Основной контент */}
-        <div className="flex flex-col gap-[12px] w-full p-[16px] pb-[100px]">
+        {/* Основной контент с прокруткой */}
+        <div className="flex-1 overflow-y-auto flex flex-col gap-[12px] w-full p-[16px] pb-[100px]">
           {/* FAQ секции */}
           {faqData?.sections.map((section, index) => (
             <div
@@ -76,7 +75,8 @@ export default function FAQ() {
               style={{
                 background: '#35363A',
                 border: 'none',
-                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+                flexShrink: 0
               }}
             >
               <div className="flex justify-between items-center">
@@ -117,7 +117,7 @@ export default function FAQ() {
           {/* Контактная информация */}
           {faqData?.contact_info && (
             <div 
-              className="w-full rounded-[20px] p-[16px] text-center mt-[8px]"
+              className="w-full rounded-[20px] p-[16px] text-center mt-[8px] flex-shrink-0"
               style={{
                 background: '#35363A',
                 border: 'none'
@@ -197,16 +197,12 @@ export default function FAQ() {
               </button>
             </div>
           )}
-
-        
         </div>
 
         {/* Фиксированный нижний отступ для навигации */}
-        <div className="h-[80px]"></div>
+        <div className="h-[80px] flex-shrink-0"></div>
+        <Navbar />
       </div>
-      <Navbar />
     </Layout>
-
-
   );
 }

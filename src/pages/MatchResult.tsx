@@ -5,7 +5,7 @@ import { Layout } from "../components/Layout";
 import { TelegramCard } from "../components/TelegramCard";
 import { TelegramButton } from "../components/TelegramButton";
 import { TelegramLoader } from "../components/TelegramLoader";
-
+import Navbar from "../components/Navbar";
 interface Match {
   id: number;
   start_time: string;
@@ -134,21 +134,24 @@ export default function MatchResult() {
   };
 
   return (
-    <Layout title="Результат матча" showBackButton>
+    <Layout showBackButton>
       <div style={{ 
         display: 'flex', 
         flexDirection: 'column', 
         gap: '16px', 
         width: '100%', 
         alignItems: 'center',
-        paddingBottom: '20px'
+        paddingBottom: '20px',
+        backgroundColor:'rgb(26 31 37 / var(--tw-bg-opacity, 1))',
+        inset:0,
       }}>
         {/* Информация о матче */}
-        <TelegramCard style={{ textAlign: 'center' }}>
+            
+        <TelegramCard style={{ textAlign: 'center',backgroundColor:'#35363A', }}>
           <div style={{ 
             fontSize: '1.1rem', 
             fontWeight: '600', 
-            marginBottom: '8px'
+            marginBottom: '8px',
           }}>
             {formatMatchDate()}
           </div>
@@ -174,7 +177,8 @@ export default function MatchResult() {
           minHeight: '200px',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          backgroundColor:'#35363A',
         }}>
           <div style={{ 
             fontSize: '4rem',
@@ -214,7 +218,7 @@ export default function MatchResult() {
         {match.results && (
           <>
             {(match.results.best_player || match.results.best_goal_player || match.results.best_save_player) && (
-              <TelegramCard>
+              <TelegramCard style={{backgroundColor:'#35363A',}}>
                 <div style={{ 
                   fontSize: '1.1rem',
                   fontWeight: '600',
@@ -293,7 +297,7 @@ export default function MatchResult() {
             
             {/* Заметки к матчу */}
             {match.results.notes && (
-              <TelegramCard>
+              <TelegramCard style={{backgroundColor:'#35363A',}}>
                 <div style={{ 
                   fontSize: '1.1rem',
                   fontWeight: '600',
@@ -315,11 +319,7 @@ export default function MatchResult() {
           </>
         )}
 
-        <div style={{ marginTop: '20px' }}>
-          <TelegramButton onClick={() => navigate("/matches")} variant="secondary">
-            Назад к истории матчей
-          </TelegramButton>
-        </div>
+       <Navbar/>
       </div>
     </Layout>
   );

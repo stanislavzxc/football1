@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom' // Добавляем useNavigate
 import { Layout } from '../components/Layout'
 import { LoadingSpinner } from '../components/LoadingSpinner'
 import Navbar from '../components/Navbar'
@@ -37,6 +38,7 @@ export default function MatchHistory() {
 	const [selectedMonth, setSelectedMonth] = useState<Date | null>(null)
 	const [currentGroupIndex, setCurrentGroupIndex] = useState(0)
 	const [failedImages, setFailedImages] = useState<Set<number>>(new Set())
+	const navigate = useNavigate() // Добавляем хук навигации
 
 	useEffect(() => {
 		const fetchMatches = async () => {
@@ -122,6 +124,11 @@ export default function MatchHistory() {
 			setMatches([])
 		}
 	}, [selectedMonth, allMatches])
+
+	// Функция для навигации к деталям матча
+	const handleMatchClick = (matchId: number) => {
+		navigate(`/match/${matchId}/result`) // Используем тот же путь, что и в TelegramCard
+	}
 
 	// Функция для создания прокси URL для обхода CORS
 	const getImageUrl = (url: string | undefined, matchId: number): string => {
@@ -291,7 +298,7 @@ export default function MatchHistory() {
 			case 'blue':
 				return '🔵Синие'
 			case 'draw':
-				return 'Ничья'
+				return '🟡Ничья'
 			default:
 				return 'Результат не известен'
 		}
@@ -392,6 +399,8 @@ export default function MatchHistory() {
 							<div
 								className='grid grid-rows-[120px] grid-cols-[120px_1fr] gap-[15px] p-[15px] border-b border-[#C3C3C3] dark:border-[#575757] items-center'
 								key={match.id}
+								onClick={() => handleMatchClick(match.id)} // Добавляем обработчик клика
+								style={{ cursor: 'pointer' }} // Делаем курсор указателем
 							>
 								{/* Изображение арены */}
 								<div className='relative rounded-[20px] size-full overflow-hidden'>
