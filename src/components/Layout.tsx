@@ -61,12 +61,17 @@ export function Layout({
 				position: 'fixed',
 				top: 0,
 				left: 0,
+				right: 0,
+				bottom: 0,
+				margin: 0,
+				padding: 0,
 				background:
 					'linear-gradient(180deg, #4A90E2 0%, #2E5BBA 50%, #1E3A8A 100%)',
 				fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
 				overflow: 'hidden',
 				touchAction: 'pan-y',
 				overscrollBehavior: 'none',
+				boxSizing: 'border-box',
 			}}
 		>
 			{/* Фоновое изображение - оптимизировано */}
@@ -96,6 +101,8 @@ export function Layout({
 					height: '100%',
 					// background: 'rgba(25, 32, 40, 0.4)',
 					zIndex: 1,
+					margin: 0,
+					padding: 0,
 				}}
 			/>
 
@@ -135,6 +142,8 @@ export function Layout({
 						textAlign: 'center',
 						zIndex: 3,
 						width: '90%',
+						margin: 0,
+						padding: 0,
 					}}
 				>
 					<div
@@ -145,6 +154,8 @@ export function Layout({
 							textShadow: '0 0 5px rgba(255,255,255,0.3)',
 							transform: 'rotate(-2deg)',
 							lineHeight: 1,
+							margin: 0,
+							padding: 0,
 						}}
 					>
 						{title}
@@ -163,7 +174,8 @@ export function Layout({
 					zIndex: 2,
 					overflowY: 'auto',
 					overflowX: 'hidden',
-					padding: '0 20px 20px',
+					padding: 0, // Убрал паддинги здесь
+					margin: 0,
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
@@ -172,8 +184,9 @@ export function Layout({
 					overscrollBehavior: 'contain',
 					maxWidth: '100vw',
 					boxSizing: 'border-box',
-					// Дополнительная защита от выхода за границы
 					scrollBehavior: 'smooth',
+						inset:0,
+
 				}}
 				onScroll={e => {
 					// Предотвращаем горизонтальную прокрутку
@@ -192,6 +205,9 @@ export function Layout({
 						alignItems: 'center',
 						minHeight: 'fit-content',
 						boxSizing: 'border-box',
+						padding: 0, // Убрал паддинги здесь
+						margin: 0,
+						inset:0,
 					}}
 				>
 					{children}

@@ -51,6 +51,7 @@ const getUserId = () => telegramWebApp.getUserId()
 export const api = {
 	getMatches: async (): Promise<Match[]> => {
 		const response = await apiClient.get('/matches')
+		console.log(response.data, 'asdfasdfasdfasdfas')
 		return response.data.matches || response.data
 	},
 
