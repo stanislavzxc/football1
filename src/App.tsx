@@ -95,7 +95,7 @@ function App() {
 				minHeight: `${
 					currentViewportHeight || viewportStableHeight || viewportHeight
 				}px`,
-				overflow: 'hidden',
+				overflow: 'auto',
 				fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
 				position: 'fixed',
 				top: 0,
@@ -104,7 +104,7 @@ function App() {
 		>
 			<ThemeProvider>
 				<Routes>
-					<Route path='/' element={<MainPage />} />
+					<Route path='/' element={<MyProfile />} />
 					<Route path='/loading' element={<LoadingScreen />} />
 
 					<Route path='/register' element={<GameRegister />} />

@@ -18,10 +18,10 @@ export function TelegramCard({
 }: TelegramCardProps) {
   const baseStyle: React.CSSProperties = {
     background: 'rgba(255,255,255,0.02)',
-    border: '2px solid rgba(255,255,255,0.8)',
+    border: 'none',
     borderRadius: '20px',
-    padding: '16px',
-    margin: '8px 0',
+    // padding: '16px',
+    margin: '5px 0 5px ',
     width: '100%',
     maxWidth: '320px',
     backdropFilter: 'blur(10px)',

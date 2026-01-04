@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useTelegram } from '../hooks/useTelegram'
+import { useTheme } from '../contexts/ThemeContext' // Добавляем импорт контекста темы
 
 interface LayoutProps {
 	children: React.ReactNode
@@ -22,6 +23,7 @@ export function Layout({
 }: LayoutProps) {
 	const { webApp, viewportHeight, viewportStableHeight, isInTelegram } =
 		useTelegram()
+	const { isDarkMode } = useTheme() // Получаем состояние темы
 	const location = useLocation()
 	const navigate = useNavigate()
 	const handleBackClick = useCallback(() => {
@@ -51,12 +53,19 @@ export function Layout({
 	// Используем стабильную высоту viewport для лучшей производительности
 	const containerHeight = isInTelegram ? viewportStableHeight : viewportHeight
 
+	// Определяем цвет фона в зависимости от темы
+	const backgroundColor = isDarkMode 
+		? 'rgb(26 31 37 / var(--tw-bg-opacity, 1))' 
+		: '#FFFFFF'
+	
+	// Определяем цвет текста в зависимости от темы
+	const textColor = isDarkMode ? 'white' : '#1A1F25'
+
 	return (
 		<div
 			className={`telegram-mini-app-container ${className}`}
 			style={{
-						inset:0,
-
+				overflow: 'auto',
 				width: '100vw',
 				height: `${containerHeight}px`,
 				maxHeight: `${containerHeight}px`,
@@ -67,14 +76,11 @@ export function Layout({
 				bottom: 0,
 				margin: 0,
 				padding: 0,
-				background:
-					'linear-gradient(180deg, #4A90E2 0%, #2E5BBA 50%, #1E3A8A 100%)',
+				background: backgroundColor, // Используем переменную фона
 				fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
-				overflow: 'hidden',
 				touchAction: 'pan-y',
 				overscrollBehavior: 'none',
 				boxSizing: 'border-box',
-
 			}}
 		>
 			{/* Фоновое изображение - оптимизировано */}
@@ -94,22 +100,23 @@ export function Layout({
         }}
       /> */}
 
-			{/* Затемняющий слой */}
-			<div
-				style={{
-					position: 'absolute',
-					top: 0,
-					left: 0,
-					width: '100%',
-					height: '100%',
-					// background: 'rgba(25, 32, 40, 0.4)',
-					zIndex: 1,
-					margin: 0,
-					padding: 0,
-						inset:0,
-
-				}}
-			/>
+			{/* Затемняющий слой - теперь с проверкой темы */}
+			{isDarkMode && (
+				<div
+					style={{
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						width: '100%',
+						height: '100%',
+						// background: 'rgba(25, 32, 40, 0.4)', // Можно убрать или оставить для темной темы
+						zIndex: 1,
+						margin: 0,
+						padding: 0,
+						inset: 0,
+					}}
+				/>
+			)}
 
 			{/* Лого - яркое на главной, затемненное на остальных */}
 			{/* <div
@@ -149,22 +156,20 @@ export function Layout({
 						width: '90%',
 						margin: 0,
 						padding: 0,
-						inset:0,
-
+						inset: 0,
 					}}
 				>
 					<div
 						style={{
 							fontFamily: 'EdoSZ, sans-serif',
 							fontSize: '1.8rem',
-							color: 'white',
-							textShadow: '0 0 5px rgba(255,255,255,0.3)',
+							color: textColor, // Используем переменную цвета текста
+							textShadow: isDarkMode ? '0 0 5px rgba(255,255,255,0.3)' : '0 0 5px rgba(0,0,0,0.1)', // Разные тени для темной и светлой темы
 							transform: 'rotate(-2deg)',
 							lineHeight: 1,
 							margin: 0,
 							padding: 0,
-						inset:0,
-
+							inset: 0,
 						}}
 					>
 						{title}
@@ -176,16 +181,15 @@ export function Layout({
 			<div
 				style={{
 					position: 'absolute',
-					
-					inset:'0px',
-					top: title ? '120px' : '40px',
+					inset: '0px',
+					top: 0,
 					left: 0,
 					right: 0,
 					bottom: 0,
 					zIndex: 2,
 					overflowY: 'auto',
 					overflowX: 'hidden',
-					padding: 0, // Убрал паддинги здесь
+					padding: 0,
 					margin: 0,
 					display: 'flex',
 					flexDirection: 'column',
@@ -196,8 +200,7 @@ export function Layout({
 					maxWidth: '100vw',
 					boxSizing: 'border-box',
 					scrollBehavior: 'smooth',
-
-
+					backgroundColor: 'transparent', // Делаем фон прозрачным
 				}}
 				onScroll={e => {
 					// Предотвращаем горизонтальную прокрутку
@@ -216,9 +219,10 @@ export function Layout({
 						alignItems: 'center',
 						minHeight: 'fit-content',
 						boxSizing: 'border-box',
-						padding: 0, // Убрал паддинги здесь
+						padding: 0,
 						margin: 0,
-						inset:0,
+						inset: 0,
+						backgroundColor: 'transparent', // Делаем фон прозрачным
 					}}
 				>
 					{children}
